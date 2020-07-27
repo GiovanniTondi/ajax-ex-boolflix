@@ -43,16 +43,16 @@ function printData(data) {
     var compiled = Handlebars.compile(template);
     var target = $('.items-list');
 
-    target.html();
+    target.html('');
 
     for (var i = 0; i < total_results; i++) {
 
-        var item = {};
-
-        item.title = data['results'][i]['title'];
-        item.originalTitle = data['results'][i]['original_title'];
-        item.originalLanguage = data['results'][i]['original_language'];
-        item.vote = data['results'][i]['vote_count'];
+        var item = {
+            title: data['results'][i]['title'],
+            originalTitle: data['results'][i]['original_title'],
+            originalLanguage: data['results'][i]['original_language'],
+            vote: data['results'][i]['vote_count'],
+        };
 
         var itemHTML = compiled(item);
         target.append(itemHTML);

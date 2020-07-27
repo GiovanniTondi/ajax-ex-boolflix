@@ -28,8 +28,10 @@ header {
 }
 
 .items-list {
+    padding: 1%;
+    max-width: 100%;
     display: flex;
-    overflow: auto;
+    overflow-x: auto;
 }
 
 .item {
