@@ -11,7 +11,9 @@
         <div class="item">
             <span class="title">Titolo: {{ title }}</span>
             <span class="originalTitle">Titolo originale: {{ original_title }}</span>
-            <span class="originalLanguage">Lingua: {{ original_language }}</span>
+            <span class="originalLanguage">Lingua:
+                <img class="flag" src="img/flags/{{ original_language }}.svg" alt="{{ original_language }}">
+            </span>
             <span class="vote">Voto: {{{ star }}} </span>
         </div>
     </script>
