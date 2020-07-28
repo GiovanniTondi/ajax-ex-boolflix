@@ -9,8 +9,8 @@
     <title>ajax-ex-boolflix</title>
     <script id="item-template" type="text/x-handlebars-template">
         <div class="item">
-            <span class="title">Titolo: {{ title }}</span>
-            <span class="originalTitle">Titolo originale: {{ original_title }}</span>
+            <span class="title">Titolo: {{ title }} {{ name }}</span>
+            <span class="originalTitle">Titolo originale: {{ original_title }} {{ original_name}}</span>
             <span class="originalLanguage">Lingua:
                 <img class="flag" src="img/flags/{{ original_language }}.svg" alt="{{ original_language }}">
             </span>
@@ -28,7 +28,14 @@
     </header>
 
     <div class="wrapper">
-        <div class="items-list">
+        <h2 class="list-title" style="display:none">Film</h2>
+        <div class="movie-list">
+
+        </div>
+
+
+        <h2 class="list-title" style="display:none">Serie TV</h2>
+        <div class="tv-series-list">
 
         </div>
     </div>

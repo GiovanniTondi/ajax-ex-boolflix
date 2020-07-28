@@ -18,44 +18,72 @@ function search() {
 
     if (query) {
 
-        $.ajax({
-
-            url: 'https://api.themoviedb.org/3/search/movie',
-            method: 'GET',
-            data: {
-                api_key: '1bbceadc26f3613e76c0387d834f799f',
-                language: 'it',
-                query: query
-            },
-            success: function (data) {
-                printData(data);
-            },
-            error: function (err) {
-                console.log('Errore', err);
-            }
-        });
+        moviesApi(query);
+        tvSeriesApi(query);
     }
-
 }
 
-function printData(data) {
+function moviesApi(query) {
 
+    $.ajax({
+
+        url: 'https://api.themoviedb.org/3/search/movie',
+        method: 'GET',
+        data: {
+            api_key: '1bbceadc26f3613e76c0387d834f799f',
+            language: 'it',
+            query: query
+        },
+        success: function (data) {
+            printData(data, 'movie');
+        },
+        error: function (err) {
+            console.log('Errore', err);
+        }
+    });
+}
+
+function tvSeriesApi(query) {
+
+    $.ajax({
+
+        url: 'https://api.themoviedb.org/3/search/tv',
+        method: 'GET',
+        data: {
+            api_key: '1bbceadc26f3613e76c0387d834f799f',
+            language: 'it',
+            query: query
+        },
+        success: function (data) {
+            printData(data, 'tv-series');
+        },
+        error: function (err) {
+            console.log('Errore', err);
+        }
+    });
+}
+
+function printData(data, target) {
 
     var total_results = data['total_results'];
 
     var template = $('#item-template').html();
     var compiled = Handlebars.compile(template);
-    var target = $('.items-list');
+    var target = $(`.${target}-list`);
+    var items = data['results'];
 
     target.html('');
 
+    items.length > 0 ? target.prev('.list-title').show() : target.prev('.list-title').hide();
+
+    if (total_results > 20) total_results = 20;
+
     for (var i = 0; i < total_results; i++) {
 
-        var item = data['results'][i];
-
-        item.star = '';
+        var item = items[i];
 
         var stelle = Math.ceil(item.vote_average / 2);
+        item.star = '';
 
         for (var j = 0; j < stelle; j++) {
             item.star += '<i class="fas fa-star"></i>';
@@ -68,7 +96,6 @@ function printData(data) {
         var itemHTML = compiled(item);
         target.append(itemHTML);
     }
-
 }
 
 
