@@ -5,9 +5,7 @@ function listener() {
     $('#search').keyup(function() {
         var key = event.which;
 
-        if (key == 13) {
-            search();
-        }
+        if (key == 13) search();
     });
 }
 

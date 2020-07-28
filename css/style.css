@@ -15,11 +15,12 @@ header {
     align-items: center;
     padding: 20px;
     height: 70px;
+    width: 100%;
     background-color: #e9bfbf;
 }
 
 .wrapper {
-    height: calc(100vh - 70px);
+    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -27,27 +28,61 @@ header {
     align-items: center;
 }
 
+.container {
+    height: calc(100% - 70px);
+    width: 100%;
+    overflow: auto;
+}
+
+.movies,
+.tv-series {
+    padding: 20px 0;
+}
+
 .movie-list,
 .tv-series-list {
+    display: flex;
+    align-items: flex-start;
     padding: 1%;
     max-width: 100%;
-    display: flex;
     overflow-x: auto;
 }
 
-.item {
-    margin: 10px;
-    padding: 20px;
-    min-height: 300px;
-    min-width: 220px;
-    background-color: #222;
-    color: #fff;
-    box-shadow: 0 0 20px 1px #ecdede;
-    border-radius: 10px;
-    line-height: 1.5;
+
+.list-title {
+    margin-left: 30px;
 }
 
-.item > span {
+.item {
+    flex-shrink: 0;
+    position: relative;
+    margin: 10px;
+    height: 350px;
+    width: 250px;
+    color: #fff;
+    background-color: #222;
+    border-radius: 10px;
+    line-height: 1.5;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.item-info {
+    display: none;
+    padding: 20px;
+    padding-top: 30%;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(29,29,29,.8);
+    border-radius: 10px;
+}
+
+.item:hover .item-info {
+    display: block;
+    cursor: pointer;
+}
+
+.item-info > span {
     display: block;
     font-size: 18px;
     margin-bottom: 10px;
@@ -62,3 +97,14 @@ header {
     margin-left: 5px;
     vertical-align: top;
 }
+
+
+/*
+.poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    z-index: -1;
+    height: 100%;
+} */

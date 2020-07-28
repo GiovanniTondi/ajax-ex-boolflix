@@ -8,35 +8,46 @@
     <link rel="stylesheet" href="css/style.css">
     <title>ajax-ex-boolflix</title>
     <script id="item-template" type="text/x-handlebars-template">
-        <div class="item">
-            <span class="title">Titolo: {{ title }} {{ name }}</span>
-            <span class="originalTitle">Titolo originale: {{ original_title }} {{ original_name}}</span>
-            <span class="originalLanguage">Lingua:
-                <img class="flag" src="img/flags/{{ original_language }}.svg" alt="{{ original_language }}">
-            </span>
-            <span class="vote">Voto: {{{ star }}} </span>
+        <div class="item" style="background-image: url('https://image.tmdb.org/t/p/w342/{{ poster_path }}')">
+            <!-- <img class="poster" src="https://image.tmdb.org/t/p/w342/{{ poster_path }}" alt=""> -->
+            <div class="item-info">
+
+                <span class="title">Titolo: {{ title }} {{ name }}</span>
+                <span class="originalTitle">Titolo originale: {{ original_title }} {{ original_name}}</span>
+                <span class="originalLanguage">Lingua:
+                    <img class="flag" src="img/flags/{{ original_language }}.svg" alt="{{ original_language }}">
+                </span>
+                <span class="vote">Voto: {{{ star }}} </span>
+            </div>
         </div>
     </script>
 </head>
 <body>
 
-    <header>
-        <div class="form">
-            <input id="search" type="text" name="" value="" placeholder="Search">
-            <button id="searchBtn" type="button" name="button">Cerca</button>
-        </div>
-    </header>
 
     <div class="wrapper">
-        <h2 class="list-title" style="display:none">Film</h2>
-        <div class="movie-list">
+        <header>
+            <div class="form">
+                <input id="search" type="text" name="" value="" placeholder="Search">
+                <button id="searchBtn" type="button" name="button">Cerca</button>
+            </div>
+        </header>
+        <div class="container">
+            <div class="movies">
 
-        </div>
+                <h2 class="list-title" style="display:none">Film</h2>
+                <div class="movie-list">
 
+                </div>
+            </div>
 
-        <h2 class="list-title" style="display:none">Serie TV</h2>
-        <div class="tv-series-list">
+            <div class="tv-series">
 
+                <h2 class="list-title" style="display:none">Serie TV</h2>
+                <div class="tv-series-list">
+
+                </div>
+            </div>
         </div>
     </div>
 
