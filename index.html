@@ -12,12 +12,14 @@
             <!-- <img class="poster" src="https://image.tmdb.org/t/p/w342/{{ poster_path }}" alt=""> -->
             <div class="item-info">
 
-                <span class="title">Titolo: {{ title }} {{ name }}</span>
-                <span class="originalTitle">Titolo originale: {{ original_title }} {{ original_name}}</span>
-                <span class="originalLanguage">Lingua:
+                <span class="item-text">Titolo: </span><span>{{ title }} {{ name }}</span><br>
+                <span class="item-text">Titolo originale: </span><span>{{ original_title }} {{ original_name}}</span><br>
+                <span class="item-text">Lingua:
                     <img class="flag" src="img/flags/{{ original_language }}.svg" alt="{{ original_language }}">
-                </span>
-                <span class="vote">Voto: {{{ star }}} </span>
+                </span><br>
+                <span class="item-text vote">Voto: {{{ star }}} </span><br>
+                <span class="item-text">Riassunto: </span>
+                <span>{{ overview }}</span>
             </div>
         </div>
     </script>
@@ -27,9 +29,12 @@
 
     <div class="wrapper">
         <header>
+            <div class="logo">
+                <a href="#">BOOLFLIX</a>
+            </div>
             <div class="form">
                 <input id="search" type="text" name="" value="" placeholder="Search">
-                <button id="searchBtn" type="button" name="button">Cerca</button>
+                <i id="searchBtn" class="fas fa-search"></i>
             </div>
         </header>
         <div class="container">
