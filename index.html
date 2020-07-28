@@ -10,9 +10,9 @@
     <script id="item-template" type="text/x-handlebars-template">
         <div class="item">
             <span class="title">Titolo: {{ title }}</span>
-            <span class="originalTitle">Titolo originale: {{ originalTitle }}</span>
-            <span class="originalLanguage">Lungua: {{ originalLanguage }}</span>
-            <span class="vote">Voti: {{ vote }}</span>
+            <span class="originalTitle">Titolo originale: {{ original_title }}</span>
+            <span class="originalLanguage">Lingua: {{ original_language }}</span>
+            <span class="vote">Voto: {{{ star }}} </span>
         </div>
     </script>
 </head>
@@ -23,7 +23,6 @@
             <input id="search" type="text" name="" value="" placeholder="Search">
             <button id="searchBtn" type="button" name="button">Cerca</button>
         </div>
-
     </header>
 
     <div class="wrapper">

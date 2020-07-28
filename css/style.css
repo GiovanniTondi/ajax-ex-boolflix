@@ -35,14 +35,23 @@ header {
 }
 
 .item {
-    /* display: inline-block; */
     margin: 10px;
-    padding: 10px;
+    padding: 20px;
+    min-height: 350px;
+    min-width: 250px;
+    background-color: #222;
+    color: #fff;
     box-shadow: 0 0 20px 1px #ecdede;
     border-radius: 10px;
+    line-height: 1.5;
 }
 
 .item > span {
     display: block;
     font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.vote i {
+    color: #FAFF00;
 }

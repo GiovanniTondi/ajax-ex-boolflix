@@ -16,22 +16,26 @@ function search() {
 
     var query = $('#search').val();
 
-    $.ajax({
+    if (query) {
 
-        url: 'https://api.themoviedb.org/3/search/movie',
-        method: 'GET',
-        data: {
-            api_key: '1bbceadc26f3613e76c0387d834f799f',
-            language: 'it',
-            query: query
-        },
-        success: function (data) {
-            printData(data);
-        },
-        error: function (err) {
-            console.log('Errore', err);
-        }
-    });
+        $.ajax({
+
+            url: 'https://api.themoviedb.org/3/search/movie',
+            method: 'GET',
+            data: {
+                api_key: '1bbceadc26f3613e76c0387d834f799f',
+                language: 'it',
+                query: query
+            },
+            success: function (data) {
+                printData(data);
+            },
+            error: function (err) {
+                console.log('Errore', err);
+            }
+        });
+    }
+
 }
 
 function printData(data) {
@@ -47,12 +51,19 @@ function printData(data) {
 
     for (var i = 0; i < total_results; i++) {
 
-        var item = {
-            title: data['results'][i]['title'],
-            originalTitle: data['results'][i]['original_title'],
-            originalLanguage: data['results'][i]['original_language'],
-            vote: data['results'][i]['vote_count'],
-        };
+        var item = data['results'][i];
+
+        item.star = '';
+
+        var stelle = Math.ceil(item.vote_average / 2);
+
+        for (var j = 0; j < stelle; j++) {
+            item.star += '<i class="fas fa-star"></i>';
+        }
+
+        for (var j = 0; j < (5 - stelle); j++) {
+            item.star += '<i class="far fa-star"></i>';
+        }
 
         var itemHTML = compiled(item);
         target.append(itemHTML);
