@@ -66,30 +66,95 @@ header .logo a{
     overflow: auto;
 }
 
+.modal-container {
+    position: absolute;
+    display: none;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 30px;
+
+    width: 80%;
+    max-width: 85%;
+    max-height: 80%;
+
+    background-color: #222;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 30px 10px #444;
+
+    overflow-y: auto;
+
+    text-align: center;
+}
+
 .movies,
-.tv-series {
+.tv-series,
+.cast,
+.genres {
     padding: 20px 0;
 }
 
-.movie-list,
-.tv-series-list {
-    display: flex;
-    align-items: flex-start;
+.list {
+    display: inline-flex;
     padding: 1%;
     max-width: 100%;
     overflow-x: auto;
 }
 
+.list::after {
+    content: '';
+    padding-right: 0.02px;
+}
 
-.list-title {
+
+.container .list-title {
     margin-left: 30px;
+}
+
+.cast-list {
+    position: relative;
+}
+
+.cast-list .item-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: rgba(29,29,29,.8);
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.genres-list .item {
+    border: solid 1px #fff;
+}
+
+.genres-list .item {
+    opacity: 1;
+    height: 100px;
+    width: 250px;
+    font-size: 22px;
+    line-height: 100px;
+    text-align: center;
 }
 
 .item {
     flex-shrink: 0;
     position: relative;
     margin: 10px;
-    height: 350px;
+    height: 360px;
     width: 250px;
     color: #fff;
     background-color: #222;
@@ -98,22 +163,23 @@ header .logo a{
     background-size: cover;
 }
 
-.item-info {
-    display: none;
+.container .item-info {
+    opacity: 0;
     padding: 10px 20px;
     height: 100%;
     width: 100%;
     background-color: rgba(29,29,29,.8);
     border-radius: 10px;
     overflow-y: auto;
+    transition: all .3s;
 }
 
-.item:hover .item-info {
-    display: block;
+.container .item:hover .item-info {
+    opacity: 1;
     cursor: pointer;
 }
 
-.item-info > span {
+.container .item-info > span {
     font-size: 16px;
     line-height: 1.7;
 }
@@ -132,30 +198,48 @@ header .logo a{
     vertical-align: top;
 }
 
-
-/*
-.poster {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 10px;
-    z-index: -1;
-    height: 100%;
-} */
+.opacity {
+    opacity: .7;
+}
 
 @media screen and (max-width: 1400px) {
+
+    header {
+        height: 75px;
+    }
+
+    #search {
+        padding: 0 5px;
+        height: 35px;
+    }
+
+    #searchBtn {
+        padding: 10px;
+        font-size: 17px;
+        vertical-align: middle;
+    }
+
+    .container {
+        height: calc(100% - 75px);
+    }
 
     .item {
         height: 250px;
         width: 175px;
     }
 
-    .item-info {
+    .container .item-info {
         padding: 10px;
     }
 
-    .item-info > span {
+    .container .item-info > span {
         font-size: 14px;
         line-height: 1.4;
+    }
+
+    .cast-list .item-info {
+        font-size: 16px;
+        height: 25px;
+        line-height: 25px;
     }
 }

@@ -10,7 +10,7 @@
     <script id="item-template" type="text/x-handlebars-template">
         <div class="item" style="background-image: url('https://image.tmdb.org/t/p/w342/{{ poster_path }}')">
             <!-- <img class="poster" src="https://image.tmdb.org/t/p/w342/{{ poster_path }}" alt=""> -->
-            <div class="item-info">
+            <div class="item-info" data-id="{{ id }}" data-type="{{ type }}">
 
                 <span class="item-text">Titolo: </span><span>{{ title }} {{ name }}</span><br>
                 <span class="item-text">Titolo originale: </span><span>{{ original_title }} {{ original_name}}</span><br>
@@ -20,6 +20,24 @@
                 <span class="item-text vote">Voto: {{{ star }}} </span><br>
                 <span class="item-text">Riassunto: </span>
                 <span>{{ overview }}</span>
+            </div>
+        </div>
+    </script>
+
+    <script id="cast-template" type="text/x-handlebars-template">
+        <div class="item" style="background-image: url('https://image.tmdb.org/t/p/w342/{{ profile_path }}')">
+            <div class="item-info">
+
+                <span class="item-text">{{ name }}</span><br>
+            </div>
+        </div>
+    </script>
+
+    <script id="genres-template" type="text/x-handlebars-template">
+        <div class="item">
+            <div class="item-info">
+
+                <span class="item-text">{{ name }}</span><br>
             </div>
         </div>
     </script>
@@ -41,15 +59,41 @@
             <div class="movies">
 
                 <h2 class="list-title" style="display:none">Film</h2>
-                <div class="movie-list">
+                <div class="movie-list list">
+
+                </div>
+                <!-- <div class="credits">
+                    <h2 class="list-title" style="display:none">Attori</h2>
+                    <div class="credits-list" style="display:none">
+
+                    </div>
+
+                </div> -->
+            </div>
+
+            <div class="tv">
+
+                <h2 class="list-title" style="display:none">Serie TV</h2>
+                <div class="tv-list list">
 
                 </div>
             </div>
+        </div>
 
-            <div class="tv-series">
+        <div class="modal-container">
+            <div id="modal" class="modal">
 
-                <h2 class="list-title" style="display:none">Serie TV</h2>
-                <div class="tv-series-list">
+                <div class="credits">
+                    <h2 class="list-title">Attori</h2>
+                    <div class="cast-list list">
+
+                    </div>
+                </div>
+                <div class="genres">
+                    <h2 class="list-title">Generi</h2>
+                    <div class="genres-list list">
+
+                    </div>
 
                 </div>
             </div>
