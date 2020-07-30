@@ -7,12 +7,34 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link rel="stylesheet" href="css/style.css">
     <title>ajax-ex-boolflix</title>
+
+    <script id="container-template" type="text/x-handlebars-template">
+        <div class="{{ type }} container hidden">
+                <h2 class="list-title">{{ title }}</h2>
+                <div class="genres">
+                    <select id="genres" data-type="{{ type }}">
+                        <option value="">Filtra per genere</option>
+                    </select>
+                </div>
+                <div class="{{ type }}-list list">
+
+                </div>
+            </div>
+    </script>
+
     <script id="item-template" type="text/x-handlebars-template">
-        <div class="item" style="background-image: url('https://image.tmdb.org/t/p/w342/{{ poster_path }}')">
-            <!-- <img class="poster" src="https://image.tmdb.org/t/p/w342/{{ poster_path }}" alt=""> -->
+
+        <div class="item" style="background-image: url('https://image.tmdb.org/t/p/w342/{{ poster_path }}')" data-genres="{{ genre_ids }}">
+
+            {{#unless poster_path }}
+                <div class="nocover">
+                    <i class="fas fa-video"></i>
+                </div>
+            {{/unless}}
+
             <div class="item-info" data-id="{{ id }}" data-type="{{ type }}">
 
-                <span class="item-text">Titolo: </span><span>{{ title }} {{ name }}</span><br>
+                <div class="item-text title">{{ title }} {{ name }}</div>
                 <span class="item-text">Titolo originale: </span><span>{{ original_title }} {{ original_name}}</span><br>
                 <span class="item-text">Lingua:
                     <img class="flag" src="img/flags/{{ original_language }}.svg" alt="{{ original_language }}">
@@ -48,48 +70,27 @@
     <div class="wrapper">
         <header>
             <div class="logo">
-                <a href="#">BOOLFLIX</a>
+                <a href="index.html">BOOLFLIX</a>
             </div>
             <div class="form">
                 <input id="search" type="text" name="" value="" placeholder="Search">
                 <i id="searchBtn" class="fas fa-search"></i>
             </div>
         </header>
-        <div class="container">
-            <div class="movies">
+        <main>
 
-                <h2 class="list-title" style="display:none">Film</h2>
-                <div class="movie-list list">
-
-                </div>
-                <!-- <div class="credits">
-                    <h2 class="list-title" style="display:none">Attori</h2>
-                    <div class="credits-list" style="display:none">
-
-                    </div>
-
-                </div> -->
-            </div>
-
-            <div class="tv">
-
-                <h2 class="list-title" style="display:none">Serie TV</h2>
-                <div class="tv-list list">
-
-                </div>
-            </div>
-        </div>
+        </main>
 
         <div class="modal-container">
             <div id="modal" class="modal">
 
-                <div class="credits">
+                <div class="credits container">
                     <h2 class="list-title">Attori</h2>
                     <div class="cast-list list">
 
                     </div>
                 </div>
-                <div class="genres">
+                <div class="genres container">
                     <h2 class="list-title">Generi</h2>
                     <div class="genres-list list">
 

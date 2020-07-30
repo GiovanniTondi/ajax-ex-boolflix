@@ -19,7 +19,7 @@ function clickItemsListener() {
         getInfo(id, type, 'cast', '/credits');
         getInfo(id, type, 'genres');
 
-        $('.container').addClass('opacity');
+        $('main').addClass('opacity');
         $('.modal-container').fadeIn(500);
 
     });
@@ -29,9 +29,30 @@ function clickItemsListener() {
 
         if (!$(event.target).closest(".modal").length) {
             $('.modal-container').fadeOut(500);
-            $('.container').removeClass('opacity');
+            $('main').removeClass('opacity');
         }
     })
+}
+
+function filterClickListener() {
+
+    $(document).on('change', '#genres', function () {
+
+        var id = $(this).val();
+        var type = $(this).attr('data-type');
+        var items = $(`.${type}-list .item`);
+
+        items.each(function () {
+
+            var genres = $(this).attr('data-genres');
+
+            $(this).hide();
+
+            if (genres.includes(id)) {
+                $(this).show();
+            }
+        });
+    });
 }
 
 // work funcs
@@ -40,6 +61,8 @@ function search() {
     var query = $('#search').val();
 
     if (query) {
+
+        $('main').html('');
 
         getItems(query, 'movie');
         getItems(query, 'tv');
@@ -84,7 +107,53 @@ function getInfo(id, type, target, extraPath) {
     });
 }
 
+function getGenre(type) {
+
+    $.ajax({
+
+        url: `https://api.themoviedb.org/3/genre/${type}/list`,
+        method: 'GET',
+        data: {
+            api_key: '1bbceadc26f3613e76c0387d834f799f',
+            language: 'it'
+        },
+        success: function (data) {
+            printGenres(data['genres'], type);
+        },
+        error: function (err) {
+            console.log('Errore', err);
+        }
+    });
+}
+
+function addContainer(type) {
+
+    var template = $('#container-template').html();
+    var compiled = Handlebars.compile(template);
+    var target = $('main');
+
+    var items = {
+        type: type,
+        title: type
+    }
+
+    switch (type) {
+        case 'movie':
+            items.title = 'Film';
+        break;
+        case 'tv':
+            items.title = 'Serie TV';
+            break;
+        default:
+    }
+
+    var containerHTML = compiled(items);
+    target.append(containerHTML);
+}
+
 function printItems(data, type) {
+
+    addContainer(type);
 
     var total_results = data['total_results'];
     var template = $('#item-template').html();
@@ -94,32 +163,38 @@ function printItems(data, type) {
 
     target.html('');
 
-    items.length > 0 ? target.prev('.list-title').show() : target.prev('.list-title').hide();
+    $(`.${type}`).addClass('hidden');
 
-    if (total_results > 20) total_results = 20;
+    if (items.length > 0) {
 
-    for (var i = 0; i < total_results; i++) {
+        $(`.${type}`).removeClass('hidden');
 
-        var item = items[i];
+        if (total_results > 20) total_results = 20;
 
-        item.type = type;
+        for (var i = 0; i < total_results; i++) {
 
-        var stelle = Math.ceil(item.vote_average / 2);
-        item.star = '';
+            var item = items[i];
 
-        for (var j = 0; j < stelle; j++) {
-            item.star += '<i class="fas fa-star"></i>';
+            item.type = type;
+
+            var stelle = Math.ceil(item.vote_average / 2);
+            item.star = '';
+
+            for (var j = 0; j < stelle; j++) {
+                item.star += '<i class="fas fa-star"></i>';
+            }
+
+            for (var j = 0; j < (5 - stelle); j++) {
+                item.star += '<i class="far fa-star"></i>';
+            }
+
+            var itemHTML = compiled(item);
+            target.append(itemHTML);
         }
-
-        for (var j = 0; j < (5 - stelle); j++) {
-            item.star += '<i class="far fa-star"></i>';
-        }
-
-        var itemHTML = compiled(item);
-        target.append(itemHTML);
     }
-}
 
+    getGenre(type);
+}
 
 function printInfo(data, target) {
 
@@ -134,10 +209,23 @@ function printInfo(data, target) {
 
         var item = items[i];
 
+        console.log(item);
+
         var itemHTML = compiled(item);
 
         target.append(itemHTML);
     }
+}
+
+function printGenres(data, type) {
+
+    var target = $(`.${type} .genres select`);
+
+    for (var i = 0; i < data.length; i++) {
+
+        target.append(`<option value="${data[i]['id']}">${data[i]['name']}</option>`);
+    }
+    filterClickListener();
 }
 
 function init() {
