@@ -105,14 +105,37 @@ main {
 }
 
 .container {
+    position: relative;
     padding-bottom: 50px;
+}
+
+.container .arrow {
+    position: absolute;
+    top: 18%;
+
+    padding: 185px 50px;
+    font-size: 50px;
+    opacity: .1;
+    cursor: pointer;
+}
+
+.container .arrow:hover {
+    opacity: .9;
+}
+
+.container .arrow.right {
+    right: -50px;
+}
+
+.container .arrow.left {
+    left: -50px;
 }
 
 .list {
     display: flex;
     padding: 1% 0;
     max-width: 100%;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 .list::after {
@@ -123,7 +146,8 @@ main {
 
 main .list-title {
     display: inline-block;
-    margin: 0 30px;
+    margin-right: 30px;
+    margin-left: 10px;
     font-size: 42px;
 }
 
@@ -176,7 +200,6 @@ main .genres {
     border-radius: 10px;
     background-repeat: no-repeat;
     background-size: cover;
-    /* border: solid 1px #fff; */
     box-shadow: 0 0 5px 0 #8e8a8a;
 }
 
@@ -196,12 +219,14 @@ main .item-info {
 main .item:hover .item-info {
     opacity: 1;
     cursor: pointer;
+    /* z-index: 10; */
 }
 
 main .item-info > span {
     font-size: 16px;
     line-height: 1.7;
 }
+
 
 .item-info .item-text {
     font-weight: bold;
@@ -263,6 +288,10 @@ main .item-info > span {
 
     main {
         height: calc(100% - 75px);
+    }
+
+    .container .arrow {
+        top: 14%;
     }
 
     .item {

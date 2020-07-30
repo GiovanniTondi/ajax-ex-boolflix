@@ -10,16 +10,18 @@
 
     <script id="container-template" type="text/x-handlebars-template">
         <div class="{{ type }} container hidden">
-                <h2 class="list-title">{{ title }}</h2>
-                <div class="genres">
-                    <select id="genres" data-type="{{ type }}">
-                        <option value="">Filtra per genere</option>
-                    </select>
-                </div>
-                <div class="{{ type }}-list list">
-
-                </div>
+            <h2 class="list-title">{{ title }}</h2>
+            <div class="genres">
+                <select id="genres" data-type="{{ type }}">
+                    <option value="">Filtra per genere</option>
+                </select>
             </div>
+            <div class="{{ type }}-list list">
+
+            </div>
+            <i class="fas fa-chevron-left arrow left" data-type="left" style="display:none"></i>
+            <i class="fas fa-chevron-right arrow right" data-type="right"></i>
+        </div>
     </script>
 
     <script id="item-template" type="text/x-handlebars-template">

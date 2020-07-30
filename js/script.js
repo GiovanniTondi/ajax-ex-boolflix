@@ -194,6 +194,7 @@ function printItems(data, type) {
     }
 
     getGenre(type);
+    addScrollListener(type);
 }
 
 function printInfo(data, target) {
@@ -226,6 +227,60 @@ function printGenres(data, type) {
         target.append(`<option value="${data[i]['id']}">${data[i]['name']}</option>`);
     }
     filterClickListener();
+}
+
+function addScrollListener(type) {
+
+    var target = $(`.${type} .arrow`);
+
+    $(target).click(function () {
+        // console.log(target.width());
+        // target.animate({
+        //     scrollLeft: `+=${target.width()}`
+        // }, 'fast');
+
+        var btn = $(this);
+        var direction = $(this).attr('data-type');
+        scroll(btn, type, direction);
+
+    });
+}
+
+function scroll(btn, type, direction) {
+
+    var target = $(`.${type}-list`);
+    var containerW = $(`.${type}-list`).width();
+    var itemW = ($(`.${type}-list .item`).outerWidth(true));
+    var visibleItems = Math.floor(containerW / itemW);
+    var scroll = visibleItems * itemW;
+
+    if (direction == 'left') {
+        var c = '-=';
+        scroll = containerW - (containerW - scroll);
+    } else {
+        var c = '+=';
+    }
+
+    console.log(scroll, containerW);
+
+    target.animate({
+
+        scrollLeft: `${c + scroll}`
+    }, 'slow', function () {
+
+        if (target.scrollLeft() == 0) {
+            $(`.${type} .left`).hide();
+        } else {
+            $(`.${type} .left`).show();
+        }
+
+        if (target.scrollLeft() >= target.prop('scrollLeftMax')) {
+            $(`.${type} .right`).hide();
+        } else {
+            $(`.${type} .right`).show();
+        }
+    });
+
 }
 
 function init() {
