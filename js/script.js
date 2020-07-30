@@ -234,10 +234,6 @@ function addScrollListener(type) {
     var target = $(`.${type} .arrow`);
 
     $(target).click(function () {
-        // console.log(target.width());
-        // target.animate({
-        //     scrollLeft: `+=${target.width()}`
-        // }, 'fast');
 
         var btn = $(this);
         var direction = $(this).attr('data-type');
@@ -253,34 +249,42 @@ function scroll(btn, type, direction) {
     var itemW = ($(`.${type}-list .item`).outerWidth(true));
     var visibleItems = Math.floor(containerW / itemW);
     var scroll = visibleItems * itemW;
+    var scrollOffset = parseInt($(`.${type}-list`).attr('data-scroll'));
+    var items = $(`.${type}-list .item`);
 
     if (direction == 'left') {
-        var c = '-=';
-        scroll = containerW - (containerW - scroll);
+        var itemToScroll = scrollOffset - visibleItems;
     } else {
-        var c = '+=';
+        var itemToScroll = visibleItems + scrollOffset;
     }
 
-    console.log(scroll, containerW);
+    if (itemToScroll < 1) {
+        itemToScroll = 1;
+    } else if (itemToScroll > items.length) {
+        itemToScroll = items.length;
+    }
+
+    scroll = (items[itemToScroll - 1].offsetLeft - 5);
+
+    $(`.${type}-list`).attr('data-scroll', itemToScroll);
 
     target.animate({
 
-        scrollLeft: `${c + scroll}`
+        scrollLeft: scroll
     }, 'slow', function () {
 
-        if (target.scrollLeft() == 0) {
+        if (itemToScroll == 1) {
             $(`.${type} .left`).hide();
         } else {
             $(`.${type} .left`).show();
         }
 
-        if (target.scrollLeft() >= target.prop('scrollLeftMax')) {
+        if (itemToScroll >= items.length - visibleItems + 1) {
             $(`.${type} .right`).hide();
         } else {
             $(`.${type} .right`).show();
         }
     });
-
 }
 
 function init() {

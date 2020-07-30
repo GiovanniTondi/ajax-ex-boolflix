@@ -16,7 +16,7 @@
                     <option value="">Filtra per genere</option>
                 </select>
             </div>
-            <div class="{{ type }}-list list">
+            <div class="{{ type }}-list list" data-scroll="1">
 
             </div>
             <i class="fas fa-chevron-left arrow left" data-type="left" style="display:none"></i>
@@ -30,6 +30,7 @@
 
             {{#unless poster_path }}
                 <div class="nocover">
+                    <div class="title">{{ title }} {{ name }}</div>
                     <i class="fas fa-video"></i>
                 </div>
             {{/unless}}
